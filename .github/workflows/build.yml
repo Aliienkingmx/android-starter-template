@@ -40,7 +40,15 @@ jobs:
         run: ./gradlew test --stacktrace
 
       - name: Build debug APK
-        run: ./gradlew assembleDebug --stacktrace
+        run: |
+          VERSION_FLAG=""
+          if [ "${{ github.ref_type }}" = "tag" ]; then
+            VERSION_FLAG="-PversionName=${{ github.ref_name }}"
+          fi
+          ./gradlew assembleDebug $VERSION_FLAG --stacktrace
+
+      - name: Compile instrumented tests
+        run: ./gradlew assembleDebugAndroidTest --stacktrace
 
       - name: Upload debug APK
         uses: actions/upload-artifact@v4

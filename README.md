@@ -54,18 +54,42 @@ El CI publicará `AndroidStarter-v0.1.0.apk` en Releases automáticamente.
 ## 🗂️ Estructura / Project structure
 
 ```text
-app/src/main/java/com/example/app/
-├── MainActivity.kt          # Entry point
-├── ui/counter/              # Lógica y pantalla del contador
-│   ├── Counter.kt           # Lógica pura (testeable en JVM)
-│   └── CounterScreen.kt     # UI Compose
-└── ui/theme/                # Tema Material 3
+app/src/main/
+├── AndroidManifest.xml        # Manifiesto
+├── java/com/example/app/
+│   ├── MainActivity.kt        # Entry point
+│   ├── ui/counter/            # Lógica y pantalla del contador
+│   │   ├── Counter.kt         # Lógica pura (testeable en JVM)
+│   │   └── CounterScreen.kt   # UI Compose
+│   └── ui/theme/              # Tema Material 3
+└── res/
+    ├── values/                # Strings, temas
+    ├── xml/                   # Reglas de backup/extracción
+    └── mipmap/                # Iconos
 .github/
-├── workflows/build.yml      # CI/CD
-├── dependabot.yml           # Dependabot
-├── ISSUE_TEMPLATE/          # Plantillas de issues
-└── PULL_REQUEST_TEMPLATE.md # Plantilla de PR
+├── workflows/build.yml        # CI/CD
+├── dependabot.yml             # Dependabot
+├── CODEOWNERS                 # Responsables por defecto
+├── ISSUE_TEMPLATE/            # Plantillas de issues
+└── PULL_REQUEST_TEMPLATE.md   # Plantilla de PR
 ```
+
+## ⚙️ Personalización antes de publicar / Customize before shipping
+
+Este template ya funciona tal cual, pero **antes de usarlo en producción** revisa:
+
+| Archivo | Acción |
+|---|---|
+| `app/build.gradle.kts` | Renombra `namespace` / `applicationId` y el paquete `com.example.app`. Actualiza `versionName` (o pásalo como `-PversionName=x.y.z` en CI). |
+| `app/src/main/res/values/strings.xml` | Cambia `app_name`. |
+| `README.md` badges | Apuntan a `Aliienkingmx/android-starter-template`; actualízalos a tu repo. |
+| `.github/CODEOWNERS` | Sustituye `@Aliienkingmx` por tus responsables. |
+| `LICENSE` | Sustituye el titular del copyright. |
+| `settings.gradle.kts` | Actualiza `rootProject.name`. |
+
+> **Nota sobre el APK publicado**: el CI publica el **APK de debug** firmado con el
+> keystore de debug generado en cada run. Es suficiente para pruebas y demos; para
+> distribución en Play Store configura un keystore de producción (ver `app/build.gradle.kts`).
 
 ## 🛠️ Stack / Tech stack
 
