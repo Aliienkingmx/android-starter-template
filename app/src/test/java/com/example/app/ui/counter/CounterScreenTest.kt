@@ -1,9 +1,12 @@
 package com.example.app.ui.counter
 
+import android.content.Context
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.test.core.app.ApplicationProvider
+import com.example.app.R
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,21 +26,26 @@ class CounterScreenTest {
   @get:Rule
   val composeRule = createComposeRule()
 
+  private fun context(): Context = ApplicationProvider.getApplicationContext()
+
+  private fun counterText(value: Int): String =
+    context().getString(R.string.counter_value, value)
+
   @Test
   fun `increment button increases the counter`() {
     composeRule.setContent { CounterScreen() }
 
-    composeRule.onNodeWithText("Counter: 0").assertIsDisplayed()
-    composeRule.onNodeWithText("Increment").performClick()
-    composeRule.onNodeWithText("Counter: 1").assertIsDisplayed()
+    composeRule.onNodeWithText(counterText(0)).assertIsDisplayed()
+    composeRule.onNodeWithText(context().getString(R.string.increment)).performClick()
+    composeRule.onNodeWithText(counterText(1)).assertIsDisplayed()
   }
 
   @Test
   fun `reset button returns the counter to zero`() {
     composeRule.setContent { CounterScreen() }
 
-    composeRule.onNodeWithText("Increment").performClick()
-    composeRule.onNodeWithText("Reset").performClick()
-    composeRule.onNodeWithText("Counter: 0").assertIsDisplayed()
+    composeRule.onNodeWithText(context().getString(R.string.increment)).performClick()
+    composeRule.onNodeWithText(context().getString(R.string.reset)).performClick()
+    composeRule.onNodeWithText(counterText(0)).assertIsDisplayed()
   }
 }

@@ -17,4 +17,5 @@ local.properties
 .env
 debug.keystore
 google-services.json
+/docs
 /app/build

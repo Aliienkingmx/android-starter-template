@@ -12,7 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.app.R
 
 @Composable
 fun CounterScreen(counter: Counter = remember { Counter() }) {
@@ -26,20 +28,20 @@ fun CounterScreen(counter: Counter = remember { Counter() }) {
       verticalArrangement = Arrangement.Center,
     ) {
       Text(
-        text = "Counter: ${counter.value}",
+        text = stringResource(R.string.counter_value, counter.value),
         style = MaterialTheme.typography.headlineMedium,
       )
       Button(
         onClick = { counter.increment() },
         modifier = Modifier.padding(top = 16.dp),
       ) {
-        Text("Increment")
+        Text(stringResource(R.string.increment))
       }
       Button(
         onClick = { counter.reset() },
         modifier = Modifier.padding(top = 8.dp),
       ) {
-        Text("Reset")
+        Text(stringResource(R.string.reset))
       }
     }
   }
