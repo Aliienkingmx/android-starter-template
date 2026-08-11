@@ -2,7 +2,7 @@ package com.example.app.ui.counter
 
 import android.content.Context
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.core.app.ApplicationProvider
@@ -18,6 +18,8 @@ import org.robolectric.annotation.SQLiteMode
 
 @RunWith(RobolectricTestRunner::class)
 @GraphicsMode(GraphicsMode.Mode.LEGACY)
+// SQLiteMode.LEGACY está deprecado pero es necesario en Termux (linux-aarch64).
+@Suppress("DEPRECATION")
 @SQLiteMode(SQLiteMode.Mode.LEGACY)
 @ConscryptMode(ConscryptMode.Mode.OFF)
 @Config(sdk = [36])

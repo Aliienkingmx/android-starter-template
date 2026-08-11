@@ -82,6 +82,7 @@ Este template ya funciona tal cual, pero **antes de usarlo en producción** revi
 |---|---|
 | `app/build.gradle.kts` | Renombra `namespace` / `applicationId` y el paquete `com.example.app`. Actualiza `versionName` (o pásalo como `-PversionName=x.y.z` en CI). |
 | `app/src/main/res/values/strings.xml` | Cambia `app_name`. |
+| `.github/workflows/build.yml` | Cambia el `env.APK_NAME` (nombre del APK de release) y, si renombras la app, el `name` de la release. |
 | `README.md` badges | Apuntan a `Aliienkingmx/android-starter-template`; actualízalos a tu repo. |
 | `.github/CODEOWNERS` | Sustituye `@Aliienkingmx` por tus responsables. |
 | `LICENSE` | Sustituye el titular del copyright. |
@@ -95,11 +96,11 @@ Este template ya funciona tal cual, pero **antes de usarlo en producción** revi
 
 | Tecnología | Versión |
 |---|---|
-| Kotlin | 2.2.10 |
-| Jetpack Compose (Material 3) | BOM 2024.09.00 |
-| AGP | 9.1.1 |
-| Gradle | 9.3.1 |
-| minSdk / targetSdk / compileSdk | 24 / 36 / 36 |
+| Kotlin | 2.4.10 |
+| Jetpack Compose (Material 3) | BOM 2026.06.01 |
+| AGP | 9.3.1 |
+| Gradle | 9.6.1 |
+| minSdk / targetSdk / compileSdk | 24 / 36 / 36.1 |
 
 ## 📄 Licencia / License
 

@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env:
+      # Cambia este nombre si renombras tu app (se usa para el APK de release).
+      APK_NAME: AndroidStarter
 
     steps:
       - uses: actions/checkout@v7
@@ -43,7 +46,7 @@ jobs:
         run: |
           VERSION_FLAG=""
           if [ "${{ github.ref_type }}" = "tag" ]; then
-            VERSION_FLAG="-PversionName=${{ github.ref_name }}"
+            VERSION_FLAG="-PversionName=${github.ref_name#v}"
           fi
           ./gradlew assembleDebug $VERSION_FLAG --stacktrace
 
@@ -59,12 +62,12 @@ jobs:
       - name: Rename APK for release
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          cp app/build/outputs/apk/debug/app-debug.apk "AndroidStarter-${{ github.ref_name }}.apk"
+          cp app/build/outputs/apk/debug/app-debug.apk "${APK_NAME}-${{ github.ref_name }}.apk"
 
       - name: Publish Release
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v3
         with:
-          files: AndroidStarter-*.apk
+          files: ${{ env.APK_NAME }}-*.apk
           name: Android Starter ${{ github.ref_name }}
           generate_release_notes: true
